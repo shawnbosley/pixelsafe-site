@@ -1,0 +1,293 @@
+<title>Pixel Safe</title>
+<style>
+  :root{
+    --ground:#08172b;
+    --surface:#0e2743;
+    --surface-2:#122f4f;
+    --line:#1d3f66;
+    --ink:#eaf2fb;
+    --muted:#93aecb;
+    --dim:#6b89ab;
+    --accent:#4aa3ff;
+    --accent-dim:#2a6fb8;
+    --amber:#f0a830;
+    --sans:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,"Cascadia Mono","SF Mono",Consolas,"Liberation Mono",monospace;
+    --wrap:1080px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;background:var(--ground);color:var(--ink);
+    font-family:var(--sans);font-size:17px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px;}
+  .lede{max-width:62ch;}
+
+  h1,h2,h3{text-wrap:balance;margin:0;}
+  h1{font-size:clamp(2.1rem,5.2vw,3.7rem);font-weight:800;letter-spacing:-.028em;line-height:1.08;}
+  h2{font-size:clamp(1.45rem,2.9vw,2.05rem);font-weight:700;letter-spacing:-.02em;line-height:1.2;}
+  h3{font-size:1.05rem;font-weight:700;letter-spacing:-.01em;}
+  p{margin:0;}
+  a{color:var(--accent);}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px;}
+
+  .eyebrow{
+    font-family:var(--mono);font-size:.71rem;letter-spacing:.19em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:16px;
+  }
+  .blue{color:var(--accent);}
+
+  /* ---------- header ---------- */
+  header{border-bottom:1px solid var(--line);}
+  .bar{display:flex;align-items:center;gap:13px;padding:20px 0;}
+  .bar img{width:34px;height:34px;border-radius:5px;display:block;}
+  .bar .name{font-weight:700;letter-spacing:-.015em;font-size:1.07rem;}
+  .bar .spacer{flex:1;}
+  .bar a.mail{
+    font-family:var(--mono);font-size:.79rem;color:var(--muted);text-decoration:none;
+    border:1px solid var(--line);padding:7px 13px;border-radius:5px;white-space:nowrap;
+  }
+  .bar a.mail:hover{color:var(--ink);border-color:var(--accent-dim);}
+
+  /* ---------- sections ---------- */
+  section{padding:76px 0;border-bottom:1px solid var(--line);}
+  section.hero{padding:88px 0 72px;border-bottom:1px solid var(--line);}
+  .stack{display:flex;flex-direction:column;gap:22px;}
+
+  .sub{color:var(--muted);font-size:1.12rem;}
+
+  /* ---------- round trip diagram ---------- */
+  .trip{margin-top:44px;overflow-x:auto;}
+  .trip svg{display:block;min-width:660px;width:100%;height:auto;}
+
+  /* ---------- steps ---------- */
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2px;
+         background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:40px;}
+  .step{background:var(--surface);padding:26px 24px;display:flex;flex-direction:column;gap:9px;}
+  .step .n{font-family:var(--mono);font-size:.74rem;color:var(--accent);letter-spacing:.13em;}
+  .step p{color:var(--muted);font-size:.94rem;}
+
+  /* ---------- verification figure ---------- */
+  .fig{
+    margin-top:40px;border:1px solid var(--line);border-radius:8px;background:var(--surface);
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));
+  }
+  .cell{padding:24px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:5px;}
+  .cell:last-child{border-right:0;}
+  .cell .v{font-family:var(--mono);font-size:1.85rem;font-weight:700;letter-spacing:-.03em;
+           font-variant-numeric:tabular-nums;line-height:1;}
+  .cell .k{font-family:var(--mono);font-size:.71rem;letter-spacing:.13em;text-transform:uppercase;color:var(--dim);}
+  .cell.held .v{color:var(--amber);}
+  .cell.rel .v{color:var(--accent);}
+  .figfoot{
+    padding:15px 24px;border-top:1px solid var(--line);color:var(--dim);
+    font-family:var(--mono);font-size:.76rem;grid-column:1/-1;
+  }
+
+  /* ---------- scope table ---------- */
+  .scope{margin-top:36px;border:1px solid var(--line);border-radius:8px;overflow:hidden;}
+  .row{display:flex;gap:16px;align-items:baseline;padding:15px 22px;border-bottom:1px solid var(--line);
+       background:var(--surface);}
+  .row:last-child{border-bottom:0;}
+  .row .mark{font-family:var(--mono);font-size:.83rem;flex:0 0 auto;width:74px;letter-spacing:.06em;}
+  .row.yes .mark{color:var(--accent);}
+  .row.no .mark{color:var(--dim);}
+  .row .txt{font-size:.96rem;}
+  .row.no .txt{color:var(--muted);}
+
+  /* ---------- contact ---------- */
+  .contact{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px;}
+  .btn{
+    font-family:var(--mono);font-size:.87rem;text-decoration:none;padding:13px 22px;border-radius:6px;
+    background:var(--accent);color:#04101f;font-weight:700;letter-spacing:.02em;
+  }
+  .btn:hover{background:#6fb6ff;}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);font-weight:400;}
+  .btn.ghost:hover{border-color:var(--accent-dim);}
+
+  footer{padding:34px 0 54px;color:var(--dim);font-family:var(--mono);font-size:.77rem;
+         display:flex;flex-wrap:wrap;gap:10px 26px;align-items:center;}
+
+  @media (prefers-reduced-motion:no-preference){
+    .step,.row{transition:background .18s ease;}
+    .step:hover,.row:hover{background:var(--surface-2);}
+  }
+</style>
+
+<header>
+  <div class="wrap bar">
+    <img src="data:image/jpeg;base64,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" alt="">
+    <span class="name">Pixel Safe</span>
+    <span class="spacer"></span>
+    <a class="mail" href="mailto:info@pixelsafeimaging.com">info@pixelsafeimaging.com</a>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="wrap stack">
+    <div class="eyebrow">DICOM de-identification &amp; re-identification</div>
+    <h1>Send studies off-site.<br><span class="blue">Keep the key in-house.</span></h1>
+    <p class="sub lede">
+      Research collaborations, AI vendors and outside readers all need your imaging.
+      None of them need your patients. Pixel Safe de-identifies studies on the way out,
+      re-identifies the results on the way back, and never lets the linkage leave your network.
+    </p>
+
+    <div class="trip" role="img"
+         aria-label="Diagram: studies leave your network de-identified, are processed off-site, and return re-identified. The key stays inside your network.">
+      <svg viewBox="0 0 660 220" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0 L10 5 L0 10 z" fill="#4aa3ff"/>
+          </marker>
+          <marker id="arb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0 L10 5 L0 10 z" fill="#93aecb"/>
+          </marker>
+        </defs>
+
+        <rect x="1" y="1" width="288" height="218" rx="9" fill="#0e2743" stroke="#1d3f66"/>
+        <text x="20" y="30" fill="#6b89ab" font-family="ui-monospace,Consolas,monospace" font-size="11" letter-spacing="2.2">YOUR NETWORK</text>
+        <rect x="20" y="46" width="248" height="52" rx="6" fill="#122f4f" stroke="#1d3f66"/>
+        <text x="36" y="70" fill="#eaf2fb" font-family="Segoe UI,Arial" font-size="14" font-weight="600">PACS / archive</text>
+        <text x="36" y="88" fill="#93aecb" font-family="Segoe UI,Arial" font-size="12">identified studies</text>
+
+        <rect x="20" y="120" width="248" height="66" rx="6" fill="#122f4f" stroke="#f0a830" stroke-dasharray="4 3"/>
+        <text x="36" y="145" fill="#f0a830" font-family="Segoe UI,Arial" font-size="14" font-weight="600">Identity vault</text>
+        <text x="36" y="164" fill="#93aecb" font-family="Segoe UI,Arial" font-size="12">the mapping — never transmitted</text>
+        <text x="36" y="179" fill="#6b89ab" font-family="ui-monospace,Consolas,monospace" font-size="10.5">stored once, reused every study</text>
+
+        <path d="M296 66 L 396 66" stroke="#4aa3ff" stroke-width="2" marker-end="url(#ar)" fill="none"/>
+        <text x="302" y="56" fill="#4aa3ff" font-family="ui-monospace,Consolas,monospace" font-size="10.5" letter-spacing="1.3">DE-IDENTIFIED</text>
+
+        <path d="M396 154 L 296 154" stroke="#93aecb" stroke-width="2" marker-end="url(#arb)" fill="none"/>
+        <text x="302" y="174" fill="#93aecb" font-family="ui-monospace,Consolas,monospace" font-size="10.5" letter-spacing="1.3">RESULTS BACK</text>
+
+        <rect x="404" y="1" width="255" height="218" rx="9" fill="#0b1f38" stroke="#1d3f66" stroke-dasharray="5 4"/>
+        <text x="424" y="30" fill="#6b89ab" font-family="ui-monospace,Consolas,monospace" font-size="11" letter-spacing="2.2">OFF-SITE</text>
+        <rect x="424" y="46" width="215" height="52" rx="6" fill="#122f4f" stroke="#1d3f66"/>
+        <text x="440" y="70" fill="#eaf2fb" font-family="Segoe UI,Arial" font-size="14" font-weight="600">Researcher / vendor</text>
+        <text x="440" y="88" fill="#93aecb" font-family="Segoe UI,Arial" font-size="12">no patient identity, ever</text>
+        <text x="424" y="140" fill="#6b89ab" font-family="Segoe UI,Arial" font-size="12">Reads, annotates, or trains on</text>
+        <text x="424" y="158" fill="#6b89ab" font-family="Segoe UI,Arial" font-size="12">the images. Sends findings back</text>
+        <text x="424" y="176" fill="#6b89ab" font-family="Segoe UI,Arial" font-size="12">under the pseudonym it was given.</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">The round trip</div>
+    <h2>Most tools only go one way.</h2>
+    <p class="sub lede" style="margin-top:16px;">
+      De-identifying is the easy half. The hard half is getting the results back and knowing which
+      patient they belong to — without ever having shipped that answer out of the building.
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="n">01 &nbsp;OUT</div>
+        <h3>De-identify</h3>
+        <p>Headers rewritten, identifiers replaced with per-project pseudonyms. The same patient
+           maps to the same pseudonym on every future study, so a cohort stays a cohort.</p>
+      </div>
+      <div class="step">
+        <div class="n">02 &nbsp;AWAY</div>
+        <h3>Work happens off-site</h3>
+        <p>The receiving side gets images and nothing else. There is no identity in the payload
+           to leak, subpoena, or lose.</p>
+      </div>
+      <div class="step">
+        <div class="n">03 &nbsp;BACK</div>
+        <h3>Re-identify on return</h3>
+        <p>Results come home under the pseudonym. Pixel Safe restores the real identity from a
+           mapping that never left your network, and records every delivery.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Burned-in PHI</div>
+    <h2>Some PHI never touches the header.<br>It&rsquo;s burned into the pixels.</h2>
+    <p class="sub lede" style="margin-top:16px;">
+      Ultrasound captures, secondary captures, screen grabs from a modality console — a name
+      rendered into the image itself passes every header check ever written, because there is
+      nothing in the header to find.
+    </p>
+    <p class="lede" style="margin-top:18px;color:var(--muted);">
+      Pixel Safe reads the picture. Text found in the pixels is located and blanked, and studies it
+      cannot clear are held rather than released. Blanking by modality and station is available where
+      the layout is known and fixed; where it isn&rsquo;t, the image is read directly.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Verification</div>
+    <h2>It doesn&rsquo;t trust its own scrubbing.</h2>
+    <p class="sub lede" style="margin-top:16px;">
+      Scrubbing is table stakes. Going back and re-reading the output is the part that catches what
+      the scrub missed — so that&rsquo;s what it does, on every study, before anything is released.
+    </p>
+
+    <div class="fig">
+      <div class="cell"><span class="v">364</span><span class="k">studies in</span></div>
+      <div class="cell"><span class="v">29,844</span><span class="k">images read</span></div>
+      <div class="cell rel"><span class="v">322</span><span class="k">released</span></div>
+      <div class="cell held"><span class="v">4</span><span class="k">held back</span></div>
+      <div class="figfoot">
+        Synthetic validation benchmark. The 4 held were single-image studies with burned-in PHI —
+        the kind that clears every header check. The number worth noticing is not 322. It is 4.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Scope</div>
+    <h2>What it handles.</h2>
+    <p class="sub lede" style="margin-top:16px;">
+      Stated plainly, so you can tell in a minute whether it fits what you&rsquo;re trying to do.
+    </p>
+
+    <div class="scope">
+      <div class="row yes"><span class="mark">HANDLES</span><span class="txt">DICOM studies — headers, private tags, and burned-in pixel text</span></div>
+      <div class="row yes"><span class="mark">HANDLES</span><span class="txt">Reversible pseudonyms with the mapping held inside your network</span></div>
+      <div class="row yes"><span class="mark">HANDLES</span><span class="txt">DICOM objects embedded inside clinical messages, reassembled and identified by their actual bytes</span></div>
+      <div class="row yes"><span class="mark">HANDLES</span><span class="txt">DICOM structured reports — narrative text inside the report is scrubbed, then re-read before release</span></div>
+      <div class="row yes"><span class="mark">HANDLES</span><span class="txt">Volume work — hundreds of thousands of studies, across multiple processing nodes</span></div>
+    </div>
+  </div>
+</section>
+
+<section style="border-bottom:0;">
+  <div class="wrap">
+    <div class="eyebrow">Talk to us</div>
+    <h2>Bring one study. See what comes back.</h2>
+    <p class="sub lede" style="margin-top:16px;">
+      The fastest way to judge this is on your own data, not a slide deck. Send a note and we&rsquo;ll
+      work out whether it fits what you&rsquo;re trying to do.
+    </p>
+    <div class="contact">
+      <a class="btn" href="mailto:info@pixelsafeimaging.com?subject=Pixel Safe%20enquiry">Email Pixel Safe</a>
+      <a class="btn ghost" href="mailto:info@pixelsafeimaging.com?subject=Technical%20questions">Ask a technical question</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:10px 26px;">
+    <span>Pixel Safe LLC</span>
+    <span>pixelsafeimaging.com</span>
+    <span>info@pixelsafeimaging.com</span>
+  </div>
+</footer>
