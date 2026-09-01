@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000" role="img" aria-label="Pixel Safe">
+  <title>Pixel Safe</title>
+
+  <!-- ground -->
+  <rect width="1000" height="1000" fill="#2B3541"/>
+
+  <g fill="none" stroke="#F0EDE4" stroke-linecap="round" stroke-linejoin="round">
+
+    <!-- ================= safe body ================= -->
+    <rect x="97" y="317" width="299" height="336" rx="30" stroke-width="21"/>
+
+    <!-- feet -->
+    <path d="M147 664 v20" stroke-width="21"/>
+    <path d="M346 664 v20" stroke-width="21"/>
+
+    <!-- inner door panel -->
+    <rect x="141" y="360" width="211" height="250" rx="12" stroke-width="14"/>
+
+    <!-- corner rivets -->
+    <g fill="#F0EDE4" stroke="none">
+      <circle cx="167" cy="386" r="8"/>
+      <circle cx="326" cy="386" r="8"/>
+      <circle cx="167" cy="584" r="8"/>
+      <circle cx="326" cy="584" r="8"/>
+    </g>
+
+    <!-- ================= figure inside ================= -->
+    <g stroke="#F0EDE4" stroke-width="15">
+      <!-- head -->
+      <circle cx="246" cy="406" r="23"/>
+      <!-- shoulders -->
+      <path d="M207 452 Q246 437 285 452"/>
+      <!-- torso, tapering to the waist -->
+      <path d="M213 456 L222 528"/>
+      <path d="M279 456 L270 528"/>
+      <!-- arms, held slightly away from the body -->
+      <path d="M209 458 L195 512 L191 566"/>
+      <path d="M283 458 L297 512 L301 566"/>
+      <!-- hips and legs -->
+      <path d="M222 528 h48"/>
+      <path d="M231 532 L226 592"/>
+      <path d="M261 532 L266 592"/>
+    </g>
+    <!-- chest mark -->
+    <circle cx="246" cy="478" r="12" fill="#2B3541" stroke="#F0EDE4" stroke-width="10"/>
+  </g>
+
+  <!-- ================= gear, overlapping lower-right of the safe ================= -->
+  <g transform="translate(366,516)">
+    <!-- knock the background out behind the gear so it reads as sitting on top -->
+    <circle r="70" fill="#2B3541"/>
+    <g fill="#F0EDE4">
+      <!-- eight teeth -->
+      <g>
+        <rect x="-13" y="-68" width="26" height="26" rx="4"/>
+        <rect x="-13" y="42"  width="26" height="26" rx="4"/>
+        <rect x="-68" y="-13" width="26" height="26" rx="4"/>
+        <rect x="42"  y="-13" width="26" height="26" rx="4"/>
+      </g>
+      <g transform="rotate(45)">
+        <rect x="-13" y="-68" width="26" height="26" rx="4"/>
+        <rect x="-13" y="42"  width="26" height="26" rx="4"/>
+        <rect x="-68" y="-13" width="26" height="26" rx="4"/>
+        <rect x="42"  y="-13" width="26" height="26" rx="4"/>
+      </g>
+      <circle r="47"/>
+    </g>
+    <circle r="19" fill="#2B3541"/>
+  </g>
+
+  <!-- ================= wordmark ================= -->
+  <g fill="#F0EDE4"
+     font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+     font-weight="800" letter-spacing="2">
+    <text x="438" y="424" font-size="124">PIXEL</text>
+    <text x="438" y="590" font-size="124">SAFE</text>
+  </g>
+
+</svg>
