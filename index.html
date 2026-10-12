@@ -310,6 +310,47 @@
 </section>
 
 <section>
+  <div class="strip">HL7</div>
+  <div class="split">
+    <div><h2>Results often come home as HL7.<br>The report inside is put right too.</h2></div>
+    <div class="stack">
+      <p class="sub lede">
+        An outside reader or AI vendor usually sends findings back as an HL7 result message, with the
+        report carried inside it as a Base64 file. Putting the real patient back in the message&rsquo;s fields
+        isn&rsquo;t enough on its own &mdash; the report still prints the stand-in name, MRN and dates it was given.
+      </p>
+      <p class="lede muted">
+        Pixel Safe takes HL7 result messages over MLLP and works on the whole message: the fields, the
+        file inside, and where the report ends up.
+      </p>
+    </div>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="n">01 &nbsp;THE FIELDS</div>
+      <h3>Every identifier put back</h3>
+      <p>Name, MRN, accession, order numbers and dates go back to the real patient&rsquo;s, from the
+         mapping that never left your network. A value it can&rsquo;t put back exactly holds the message.
+         It never guesses.</p>
+    </div>
+    <div class="step">
+      <div class="n">02 &nbsp;THE FILE</div>
+      <h3>Base64, read by its bytes</h3>
+      <p>The file inside the message is found, put back together when the sender splits it across
+         segments, and recognised by what its bytes are, not the label it came with. A report PDF has the
+         real identity written back inside it, then read again to be sure no stand-in is left.</p>
+    </div>
+    <div class="step">
+      <div class="n">03 &nbsp;THE STUDY</div>
+      <h3>Filed where it belongs</h3>
+      <p>The corrected message goes on to your system. The report can also be filed into the
+         patient&rsquo;s own study on your PACS, next to the images it is about. Every message in and out is
+         kept, so you can see what was sent and send it again.</p>
+    </div>
+  </div>
+</section>
+
+<section>
   <div class="strip">Starting simpler</div>
   <div class="split">
     <div><h2>Most projects don&rsquo;t need the round trip.</h2></div>
@@ -479,7 +520,7 @@ Dictated by <mark>[PROVIDER],</mark> MD on <mark>07/27/2026</mark> at 10:42 AM.<
   <div class="scope">
     <div class="row yes"><span class="mark">HANDLES</span><span class="txt">DICOM studies — headers, private tags, and burned-in pixel text</span></div>
     <div class="row yes"><span class="mark">HANDLES</span><span class="txt">Reversible pseudonyms with the mapping held inside your network</span></div>
-    <div class="row yes"><span class="mark">HANDLES</span><span class="txt">DICOM objects embedded inside clinical messages, reassembled and identified by their actual bytes</span></div>
+    <div class="row yes"><span class="mark">HANDLES</span><span class="txt">DICOM objects and report PDFs carried inside HL7 messages as Base64, reassembled and identified by their actual bytes</span></div>
     <div class="row yes"><span class="mark">HANDLES</span><span class="txt">DICOM structured reports — narrative text inside the report is scrubbed, then re-read before release</span></div>
     <div class="row yes"><span class="mark">HANDLES</span><span class="txt">Volume work — hundreds of thousands of studies, across multiple processing nodes</span></div>
   </div>
